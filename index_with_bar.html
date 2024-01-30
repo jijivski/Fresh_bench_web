@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)https://cevalbenchmark.com/index.html -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLLMBench</title>
+    <link rel="icon" href="./static/img/MLLM-logo1.png" type="image/icon type">
+    <!-- 指定文档的图标，将显示在浏览器的标签页和书签上。 -->
+    <link rel="stylesheet" href="./static/css/main.css">
+    <!--    # 引入名为"main_zh.css"的CSS样式表，用于设置文档的主要样式。-->
+    <link rel="stylesheet" href="./static/css/nav.css">
+    <!--    # 引入名为"nav.css"的CSS样式表，用于设置文档的导航栏样式。-->
+    <!--    # 引入名为"index.js"的JavaScript文件，用于设置文档的交互行为，其中defer属性表示该脚本将在页面加载后执行。-->
+    <link rel="stylesheet" href="./static/css/home.css">
+    <style type="text/css" id="operaUserStyle"></style>
+
+    <script src="./static/echarts.js"></script>
+    <!-- <link rel="stylesheet" href="./static/js/nouislider.min.css">
+    <script src="./static/js/nouislider.min.js"></script> -->
+    <!-- 不知道为什么把上面去掉换成下面这个才能有一个进度条 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.js"></script>
+</head>
+
+<div id="nav">
+    <div id="icon">
+        <img src="./static/img/MLLM-logo1.png" id="nav-icon">
+        <a class="nav-button" href="https://mllm-bench.llmzoo.com" style="margin-left: 2px; font-size: 24px">MLLMBench
+        </a>
+    </div>
+    <div>
+        <!--        <a class="nav-button" href="https://mllm-bench.llmzoo.com#home">Home</a>-->
+        <!--        <a class="nav-button" href="https://mllm-bench.llmzoo.com#data">Data</a>-->
+        <!--        <a class="nav-button" target="_blank" href="https://arxiv.org/abs/2311.13951">Paper</a>-->
+        <!--        <a class="nav-button" target="_blank" href="https://github.com/FreedomIntelligence/MLLM-Bench">Github</a>-->
+        <!--        <a class="nav-button" href="https://mllm-bench.llmzoo.com/static/leaderboard.html">Leaderboard</a>-->
+        <!--        <a class="nav-button" href="https://mllm-bench.llmzoo.com/static/benchmark.html">Benchmark</a>-->
+        <!--        <a class="nav-button" href="https://mllm-bench.llmzoo.com#contact">Contact</a>-->
+    </div>
+</div>
+
+
+<!-- anchor for the home button -->
+<div id="home" style="position: absolute; top: 0;"></div>
+
+<!-- banner -->
+<div id="title">
+    <div id="title-wrapper">
+        <img src="./static/img/MLLM-logo1.png" id="title-icon">
+        <p id="title-text">Fresh_bench</p>
+    </div>
+    <p id="subtitle-text">
+        说明略
+        <br>
+        (2024)
+    </p>
+    <p id="title-padding-bottom">&nbsp;</p>
+</div>
+
+<!-- the main body of the page -->
+<!-- each section uses an empty div as an anchor -->
+<div id="body">
+    <div class="section">
+        <h1>About XXX</h1>
+        <p style="line-height: 150%">
+            略
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h1>Echarts Demo</h1>
+        <p>
+            <!-- 这是一个简单的echarts示例，把滑块的值，和一个初始值 [82, 93, 90, 34, 120, 10, 20] 进行相加，最终结果展示在页面上 -->
+            拖动的是长度，然后根据长度计算出来loss。
+        </p>
+        <!-- noUiSlider -->
+        <div id="slider-container"></div>
+        <input type="text" id="slider-input" />
+        <!-- Echarts -->
+        <div id="echarts_demo" style="width: 600px;height:400px;"></div>
+        <script src="static/js/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('echarts_demo'));
+
+            var option;
+            var baseData = [82, 93, 90, 34, 120, 10, 20];
+            var bigDic = {
+                "day1": {
+                    "model1": {
+                        "file1": {"loss_at_10": 1.5, "loss_at_30": 0.3},
+                        "file2": {"loss_at_10": 0.6, "loss_at_30": 0.4}
+                    },
+                    "model2": {
+                        "file1": {"loss_at_10": 0.7, "loss_at_30": 0.5},
+                        "file2": {"loss_at_10": 0.8, "loss_at_30": 0.6}
+                    }
+                },
+                "day2": {
+                    "model1": {
+                        "file1": {"loss_at_10": 0.4, "loss_at_30": 0.2},
+                        "file2": {"loss_at_10": 0.5, "loss_at_30": 0.9}
+                    },
+                    "model2": {
+                        "file1": {"loss_at_10": 0.6, "loss_at_30": 0.4},
+                        "file2": {"loss_at_10": 0.7, "loss_at_30": 0.5}
+                    }
+                }
+            };
+
+            option = {
+                xAxis: {
+                    type: 'category',
+                    data: Object.keys(bigDic) // 假设bigDic的键是天数
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [], // 初始时不包含数据，稍后通过updateChart函数更新
+
+                tooltip: {
+                    trigger: 'axis',                    
+                    formatter: function (params) {
+                        // params 是一个包含当前鼠标悬停点信息的对象数组
+                        var info = '';
+                        params.forEach(function (item) {
+                            // 格式化显示信息，例如："Model: model1, Day: day1, Value: 1.5"
+                            info += 'Model: ' + item.seriesName + ', Value: ' + item.value + '<br/>';
+                        });
+                        return info;
+                    }
+            
+                },
+
+                    // trigger: 'item',
+
+
+
+            };
+
+            myChart.setOption(option);
+
+            // 远程读取json文件
+            var jsonUrl = 'https://file.huatuogpt.cn/files/models_ref/temp/data.json'
+            $.getJSON(jsonUrl, function (data) {
+                bigDic=data
+                console.log(data); // 打印bigDic以查看其内容
+                myChart.setOption({
+                    xAxis: {
+                        type: 'category',
+                        data: Object.keys(data) // 假设bigDic的键是天数
+                    },
+                    series: data
+                });
+                updateChart(10)
+            });
+
+            function updateChart(targetLen) {
+                var interpolatedDic = interpolateLoss(bigDic, targetLen);
+                var seriesData = [];
+
+                for (var model in interpolatedDic) {
+                    var modelData = [];
+                    for (var day in interpolatedDic[model]) {
+                        modelData.push(interpolatedDic[model][day]);
+                    }
+                    seriesData.push({
+                        name: model,
+                        type: 'line',
+                        data: modelData,
+                        smooth: true
+                    });
+                }
+
+                console.log("seriesData")
+                console.log(seriesData)
+
+                myChart.setOption({
+                    series: seriesData
+                });
+            }
+
+
+            function interpolateLoss(bigDic, targetLen) {
+                var interpolatedDic = {};
+                var samples = [10, 30, 50, 100, 200, 300, 400, 500, 800, 1000, 1200, 1500, 2000];
+                // var fileChosen = ['file2']
+                var fileChosen = ['file1', 'rq_arxiv_mathematics.jsonl', 'rq_arxiv_computer_science.jsonl', 'rq_arxiv_physics.jsonl', 'rq_arxiv_statistics.jsonl', 'wr_quora_Mathematics.jsonl', 'rq_arxiv_eess.jsonl']
+                var fileChosen = ['file1', 'file2', 'praw_reddit.jsonl', 'rq_arxiv_computer_science.jsonl', 'rq_arxiv_economics.jsonl', 'rq_arxiv_eess.jsonl', 'rq_arxiv_mathematics.jsonl', 'rq_arxiv_physics.jsonl', 'rq_arxiv_q_biology.jsonl', 'rq_arxiv_q_finance.jsonl', 'rq_arxiv_statistics.jsonl', 'rq_github.jsonl', 'rq_wattpad.jsonl', 'wr_Yahoo.jsonl', 'wr_bbc.jsonl', 'wr_quora_Health.jsonl', 'wr_quora_Mathematics.jsonl', 'wr_quora_Movies.jsonl', 'wr_quora_Technology.jsonl', 'wr_wiki.jsonl']
+                var modelChosen = ['Baichuan2-13B-Base', 'Baichuan2-13B-Chat', 'Baichuan2-7B-Base', 'Baichuan2-7B-Chat', 'Colossal-LLaMA-2-7b-base', 'Llama-2-13b-hf', 'Llama-2-7b-hf', 'Qwen-14B-Chat', 'Qwen-1_8B', 'Qwen-7B', 'Qwen-7B-Chat', 'Skywork-13B-base', 'TinyLlama-1.1B-Chat-v0.6', 'Yi-6B', 'Yi-6B-Chat', 'baichuan-13b-chat', 'baichuan-7b-chat', 'chatglm3-6b', 'falcon-rw-1b', 'internlm-chat-7b', 'llama2-7b-chat-hf', 'llama_hf_7b', 'mistral-7b-v0.1', 'opt-13b', 'opt-2.7b', 'phi-1_5', 'phi-2', 'pythia-12b', 'vicuna-7b-v1.5', 'zephyr-7b-beta', 'zhongjing-base']
+
+
+                for (var day in bigDic) {
+                    for (var model in bigDic[day]) {
+                        if (!interpolatedDic[model]) {
+                            interpolatedDic[model] = {};
+                        }
+                        var modelTotalLoss = 0;
+                        var count = 0;
+                        for (var file in bigDic[day][model]) {
+                            if (fileChosen.includes(file)) {
+                                // TODO 这里想加个选项，输入需要筛选的models 和files ，在想线条会不会太多？
+                                for (var i = 0; i < samples.length - 1; i++) {
+                                    if (samples[i] <= targetLen && samples[i + 1] >= targetLen) {
+                                        var lossHigh = bigDic[day][model][file]["loss_at_" + samples[i + 1]];
+                                        var lossLow = bigDic[day][model][file]["loss_at_" + samples[i]];
+                                        var lossAtTarget = lossLow + (lossHigh - lossLow) * ((targetLen - samples[i]) / (samples[i + 1] - samples[i]));
+                                        modelTotalLoss += lossAtTarget;
+                                        count++;
+                                    }
+                                }
+                            }
+                        }
+                        if (count > 0) {
+                            interpolatedDic[model][day] = modelTotalLoss / count;
+                        } else {
+                            interpolatedDic[model][day] = 0;
+                        }
+                    }
+                }
+                console.log("interpolatedDic")
+                console.log(interpolatedDic)
+                return interpolatedDic;
+            }
+
+
+            // 获取滑块和输入框的DOM元素
+            var slider = document.getElementById('slider-container');
+            var sliderInput = document.getElementById('slider-input');
+
+            // 初始化noUiSlider
+            noUiSlider.create(slider, {
+                start: [1], // 初始值设置为1，这样乘以baseData不会改变初始值
+                connect: [true, false],
+                range: {
+                    'min': [10],
+                    'max': [2000]
+                }
+            });
+
+            // 当滑块值变化时，更新输入框的值和图表
+            slider.noUiSlider.on('update', function (values, handle) {
+                var value = parseFloat(values[handle]);
+                sliderInput.value = value;
+                updateChart(value);
+            });
+
+            // 当输入框值变化时，更新滑块的值和图表
+            sliderInput.addEventListener('change', function () {
+                var value = parseFloat(this.value);
+                slider.noUiSlider.set(value);
+                updateChart(value);
+            });
+
+
+        </script>
+    </div>
+
+
+    <div class="section">
+        <div id="data" class="anchor"></div>
+        <h1>Data</h1>
+        <p>
+            Our data can be directly downloaded from
+            <a class="ext-link" href='https://github.com/FreedomIntelligence/MLLM-Bench/tree/main/data'>Github</a>.
+            Please refer to our
+            <a class="ext-link" href='https://github.com/FreedomIntelligence/MLLM-Bench'>GitHub</a>
+            for instructions on how to access and utilize the data.
+        </p>
+    </div>
+
+    <!-- <hr> -->
+    <div class="section">
+        <div id="citation" class="anchor"></div>
+        <h1>Citation</h1>
+        <!-- <p>
+            If the paper, codes, or the dataset inspires you, please cite us:
+        </p> -->
+        <pre class="bibtax"></pre>
+        <!--        <pre class="bibtax"></pre>-->
+        <br>
+    </div>
+
+    <!-- Contact -->
+    <div class="section" id="contact">
+        <h1>Contact US</h1>
+        <p>
+            For inquiries regarding MLLMBench, please contact us at
+            <a class="ext-link" href='mailto:cmedbenchmark@163.com'>cmedbenchmark@163.com</a>
+            or create an issue on
+            <a class="ext-link" href='https://github.com/FreedomIntelligence/MLLM-Bench'>Github</a>.
+            If you are interested in potential collaboration, please reach out to
+            <a class="ext-link" href='mailto:wangbenyou@cuhk.edu.cn'>wangbenyou@cuhk.edu.cn</a>.
+        </p>
+    </div>
+
+    <!-- Affiliation  -->
+    <div class="section" style="text-align: center;">
+        <div class="profile">
+            <a href="https://www.cuhk.edu.cn/en" target="_blank" rel="external">
+                <img class="center-block" src="./static/img/cuhk_logo1.png" style="height:6em; max-width: 100%;"></a>
+        </div>
+        <!--        <div class="profile">-->
+        <!--            <a href="http://www.sribd.cn/" target="_blank" rel="external">-->
+        <!--                <img class="center-block" src="./static/img/sribd_logo.png" style="height:6em; max-width: 100%;"></a>-->
+        <!--        </div>-->
+    </div>
+
+</div>
+<!-- footer -->
+<div id="footer" style="font-size: 12pt; text-align: center">
+    © 2023 Chinese University of Hong Kong, Shenzhen.
+</div>
+
+
+</body>
+
+</html>

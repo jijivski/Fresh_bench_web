@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLLMBench</title>
+    <link rel="icon" href="./img/MLLM-logo1.png" type="image/icon type">
+    <!-- 指定文档的图标，将显示在浏览器的标签页和书签上。 -->
+    <link rel="stylesheet" href="./css/main.css">
+    <!--    # 引入名为"main_zh.css"的CSS样式表，用于设置文档的主要样式。-->
+    <link rel="stylesheet" href="./css/nav.css">
+    <!--    # 引入名为"nav.css"的CSS样式表，用于设置文档的导航栏样式。-->
+    <!--    # 引入名为"index.js"的JavaScript文件，用于设置文档的交互行为，其中defer属性表示该脚本将在页面加载后执行。-->
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/leaderboard.css">
+    <style type="text/css" id="operaUserStyle"></style>
+
+</head>
+
+<div id="nav">
+    <div id="icon">
+        <img src="./img/MLLM-logo1.png" id="nav-icon">
+        <a class="nav-button" href="https://mllm-bench.llmzoo.com" style="margin-left: 2px; font-size: 24px">MLLMBench
+        </a>
+    </div>
+    <div>
+        <a class="nav-button" href="https://mllm-bench.llmzoo.com#home">Home</a>
+        <a class="nav-button" href="https://mllm-bench.llmzoo.com#data">Data</a>
+        <a class="nav-button" target="_blank" href="https://arxiv.org/abs/2311.13951">Paper</a>
+        <a class="nav-button" target="_blank" href="https://github.com/FreedomIntelligence/MLLM-Bench">Github</a>
+        <a class="nav-button" href="https://mllm-bench.llmzoo.com/static/leaderboard.html">Leaderboard</a>
+                <a class="nav-button" href="https://mllm-bench.llmzoo.com/static/benchmark.html">Benchmark</a>
+        <a class="nav-button" href="https://mllm-bench.llmzoo.com#contact">Contact</a>
+    </div>
+</div>
+
+<div id="body">
+    <br><br><br><br>
+    <div class="section">
+        <h1>Leaderboard</h1>
+        <p>We present the results of voting using GPT-4V as anchor. The numbers denote win/tie/lose of a benchmarked
+            model over GPT-4V. See more results of different evaluation protocols and anchors in our
+            <a class="ext-link" target="_blank" href='https://arxiv.org/abs/2311.13951'>paper</a>.
+            The information of benchmarked models is <a class="ext-link" target="_blank"
+                                                        href='https://github.com/FreedomIntelligence/MLLM-Bench/blob/main/Model_cards.md'>here</a>.
+        </p>
+
+        <div class="table-container">
+            <table class="results">
+                <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Models</th>
+                    <th>Perception</th>
+                    <th>Understanding</th>
+                    <th>Applying</th>
+                    <th>Analyzing</th>
+                    <th>Evaluation</th>
+                    <th>Creation</th>
+                    <th>∑ wins</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>🏅️</td>
+                    <td>LLaVA-v1.5</td>
+                    <td>5/15/50</td>
+                    <td>10/39/51</td>
+                    <td>14/18/38</td>
+                    <td>6/41/53</td>
+                    <td>10/12/18</td>
+                    <td>6/19/15</td>
+                    <td>51</td>
+                </tr>
+                <tr>
+                    <td>🥈</td>
+                    <td>LVIS</td>
+                    <td>5/18/47</td>
+                    <td>11/33/56</td>
+                    <td>10/16/44</td>
+                    <td>9/31/60</td>
+                    <td>8/15/17</td>
+                    <td>5/20/15</td>
+                    <td>48</td>
+                </tr>
+                <tr>
+                    <td>🥉</td>
+                    <td>mPLUG-Owl2</td>
+                    <td>3/12/55</td>
+                    <td>12/31/57</td>
+                    <td>12/9/49</td>
+                    <td>5/34/61</td>
+                    <td>8/9/23</td>
+                    <td>5/18/17</td>
+                    <td>48</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>CogVLM-Chat</td>
+                    <td>6/15/49</td>
+                    <td>11/31/58</td>
+                    <td>6/21/43</td>
+                    <td>6/28/66</td>
+                    <td>7/16/17</td>
+                    <td>6/12/22</td>
+                    <td>42</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Qwen-VL-Chat</td>
+                    <td>7/15/48</td>
+                    <td>13/33/54</td>
+                    <td>7/27/36</td>
+                    <td>4/43/53</td>
+                    <td>8/16/16</td>
+                    <td>2/22/16</td>
+                    <td>41</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>MiniGPT-v2</td>
+                    <td>3/14/53</td>
+                    <td>9/29/62</td>
+                    <td>3/22/45</td>
+                    <td>5/28/67</td>
+                    <td>7/17/16</td>
+                    <td>4/18/18</td>
+                    <td>31</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>InstructBLIP</td>
+                    <td>2/12/56</td>
+                    <td>10/19/71</td>
+                    <td>7/9/54</td>
+                    <td>3/24/73</td>
+                    <td>5/9/26</td>
+                    <td>1/15/24</td>
+                    <td>28</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Fuyu-8B</td>
+                    <td>3/7/60</td>
+                    <td>9/13/78</td>
+                    <td>3/5/62</td>
+                    <td>1/15/84</td>
+                    <td>6/9/25</td>
+                    <td>1/9/30</td>
+                    <td>23</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>IDEFICS-9B</td>
+                    <td>2/13/55</td>
+                    <td>9/16/75</td>
+                    <td>4/16/50</td>
+                    <td>3/23/74</td>
+                    <td>3/17/20</td>
+                    <td>2/16/22</td>
+                    <td>23</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>SEED-LLaMA</td>
+                    <td>4/9/57</td>
+                    <td>2/21/77</td>
+                    <td>5/18/47</td>
+                    <td>7/22/71</td>
+                    <td>2/17/21</td>
+                    <td>3/10/27</td>
+                    <td>23</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>kosmos2</td>
+                    <td>3/7/60</td>
+                    <td>8/14/78</td>
+                    <td>4/10/56</td>
+                    <td>4/17/79</td>
+                    <td>3/12/25</td>
+                    <td>0/8/32</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>BLIP2</td>
+                    <td>0/4/66</td>
+                    <td>2/8/90</td>
+                    <td>2/6/62</td>
+                    <td>2/5/93</td>
+                    <td>2/6/32</td>
+                    <td>1/7/32</td>
+                    <td>9</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>
